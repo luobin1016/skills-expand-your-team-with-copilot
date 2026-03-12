@@ -569,6 +569,12 @@ document.addEventListener("DOMContentLoaded", () => {
         `
         }
       </div>
+      <div class="share-buttons">
+        <span class="share-label">Share:</span>
+        <button class="share-button share-twitter" data-activity="${name}" title="Share on X (Twitter)" aria-label="Share on X (Twitter)">𝕏</button>
+        <button class="share-button share-facebook" data-activity="${name}" title="Share on Facebook" aria-label="Share on Facebook">f</button>
+        <button class="share-button share-copy" data-activity="${name}" title="Copy link" aria-label="Copy link to clipboard">🔗</button>
+      </div>
     `;
 
     // Add click handlers for delete buttons
@@ -587,7 +593,50 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    // Add click handlers for share buttons
+    activityCard.querySelector(".share-twitter").addEventListener("click", () => {
+      shareActivity("twitter", name, details);
+    });
+    activityCard.querySelector(".share-facebook").addEventListener("click", () => {
+      shareActivity("facebook", name, details);
+    });
+    activityCard.querySelector(".share-copy").addEventListener("click", (event) => {
+      shareActivity("copy", name, details, event.currentTarget);
+    });
+
     activitiesList.appendChild(activityCard);
+  }
+
+  // Share an activity on social platforms or copy the link
+  function shareActivity(platform, name, details, buttonElement) {
+    const pageUrl = window.location.origin + window.location.pathname;
+    const shareUrl = pageUrl + "?activity=" + encodeURIComponent(name);
+    const shareText = `Check out "${name}" at Mergington High School! ${details.description}`;
+
+    if (platform === "twitter") {
+      const twitterUrl = "https://twitter.com/intent/tweet?text=" +
+        encodeURIComponent(shareText) + "&url=" + encodeURIComponent(shareUrl);
+      window.open(twitterUrl, "_blank", "noopener,noreferrer");
+    } else if (platform === "facebook") {
+      const facebookUrl = "https://www.facebook.com/sharer/sharer.php?u=" +
+        encodeURIComponent(shareUrl);
+      window.open(facebookUrl, "_blank", "noopener,noreferrer");
+    } else if (platform === "copy") {
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        const originalTitle = buttonElement.title;
+        buttonElement.title = "Copied!";
+        buttonElement.classList.add("share-copy-success");
+        setTimeout(() => {
+          buttonElement.title = originalTitle;
+          buttonElement.classList.remove("share-copy-success");
+        }, 2000);
+      }).catch(() => {
+        buttonElement.title = "Could not copy link";
+        setTimeout(() => {
+          buttonElement.title = "Copy link";
+        }, 2000);
+      });
+    }
   }
 
   // Event listeners for search and filter
