@@ -664,3 +664,75 @@ footer {
 #logout-button:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
+
+/* Social sharing buttons */
+.share-buttons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-light);
+  margin-top: 6px;
+}
+
+.share-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-right: 2px;
+}
+
+.share-button {
+  background-color: transparent;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: all 0.2s ease;
+  color: var(--text-secondary);
+  line-height: 1;
+}
+
+.share-twitter {
+  color: #000000;
+  border-color: #000000;
+}
+
+.share-twitter:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.share-facebook {
+  color: #1877f2;
+  border-color: #1877f2;
+}
+
+.share-facebook:hover {
+  background-color: #1877f2;
+  color: #ffffff;
+}
+
+.share-copy {
+  color: var(--text-secondary);
+  border-color: var(--border);
+  font-size: 0.85rem;
+}
+
+.share-copy:hover {
+  background-color: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.share-copy-success {
+  background-color: var(--success);
+  color: #ffffff;
+  border-color: var(--success);
+}
